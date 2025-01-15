@@ -1,0 +1,11 @@
+.env
+.idea
+venv
+woocommerce.9.5.1
+__pycache__
+apitest/__pycache__
+apitest/src/__pycache__
+apitest/tests/__pycache__
+pytest_tutorial/__pycache__
+pytest_tutorial/my_test/__pycache__
+testwoo/__pycache__
