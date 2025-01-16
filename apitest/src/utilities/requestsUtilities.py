@@ -49,12 +49,32 @@ class RequestUtility:
 
         self.__assert_status_code()
 
-        logger.debug(f'API response: {self.rs_json}')
+        logger.debug(f'POST API response: {self.rs_json}')
 
         return self.rs_json
 
-    def get(self):
-        pass
+    def get(self, endpoint: str,
+            payload: Optional[dict] = None,
+            headers: Optional[dict] = None,
+            params: Optional[dict] = None,
+            expected_status_code=200):
+
+        if not headers:
+            headers = {'Content-Type': 'application/json'}
+
+        self.url: str = self.base_url + endpoint
+
+        rs_api = requests.get(url=self.url, params=params, data=json.dumps(payload), headers=headers, auth=self.auth)
+
+        self.status_code = rs_api.status_code
+        self.expected_status_code = expected_status_code
+        self.rs_json = rs_api.json()
+
+        self.__assert_status_code()
+
+        logger.debug(f'GET API response: {self.rs_json}')
+
+        return self.rs_json
 
 
 if __name__ == '__main__':
