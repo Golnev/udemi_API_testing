@@ -1,4 +1,3 @@
-import logging as logger
 import pytest
 
 from apitest.src.utilities.requestsUtilities import RequestUtility

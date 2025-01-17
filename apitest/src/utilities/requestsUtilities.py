@@ -16,6 +16,7 @@ load_dotenv()
 class RequestUtility:
 
     def __init__(self):
+        self.rs_api = None
         self.rs_json = None
         self.expected_status_code = None
         self.url = None
@@ -30,7 +31,7 @@ class RequestUtility:
     def __assert_status_code(self):
         assert self.status_code == self.expected_status_code, \
             (f'Bad status code. Expected status code: {self.expected_status_code}, '
-             f'actual status code: {self.rs_json.status_code}, '
+             f'actual status code: {self.rs_api.status_code}, '
              f'URL: {self.url}, Response JSON: {self.rs_json}')
 
     def post(self, endpoint: str,
@@ -42,10 +43,10 @@ class RequestUtility:
 
         self.url: str = self.base_url + endpoint
 
-        rs_api = requests.post(url=self.url, data=json.dumps(payload), headers=headers, auth=self.auth)
-        self.status_code = rs_api.status_code
+        self.rs_api = requests.post(url=self.url, data=json.dumps(payload), headers=headers, auth=self.auth)
+        self.status_code = self.rs_api.status_code
         self.expected_status_code = expected_status_code
-        self.rs_json = rs_api.json()
+        self.rs_json = self.rs_api.json()
 
         self.__assert_status_code()
 

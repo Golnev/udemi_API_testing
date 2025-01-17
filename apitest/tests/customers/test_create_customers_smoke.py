@@ -1,3 +1,5 @@
+from itertools import cycle
+
 import pytest
 import logging as logger
 
@@ -6,6 +8,7 @@ from faker.proxy import Faker
 from apitest.src.dao.customers_dao import CustomersDAO
 from apitest.src.helpers.customers_helper import CustomerHelper
 from apitest.src.utilities.genericUtilities import generate_random_email_and_password
+from apitest.src.utilities.requestsUtilities import RequestUtility
 
 
 @pytest.mark.tcid29
@@ -48,3 +51,22 @@ def test_create_customer_only_email_password(faker: Faker):
 
     # import pdb
     # pdb.set_trace()
+
+
+@pytest.mark.tcid47
+def test_create_customer_fail_for_existing_email():
+    #  Get existing email from DB.
+    cust_dao = CustomersDAO()
+    existing_cust = cust_dao.get_random_customer_from_db()
+    existing_email = existing_cust[0]['user_email']
+
+    # Try to create customer with existing email
+    req_helper = RequestUtility()
+
+    payload = {'email': existing_email, 'password': 'password_tcid47'}
+    cust_api_info = req_helper.post(endpoint='customers', payload=payload, expected_status_code=400)
+
+    assert cust_api_info['code'] == 'registration-error-email-exists', (f'Create customer with existing user '
+                                                                        f'error "cose" is not correct. '
+                                                                        f'Expected: "registration-error-email-exists", '
+                                                                        f'Actual: {cust_api_info['code']}')

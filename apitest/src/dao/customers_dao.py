@@ -1,3 +1,5 @@
+import random
+
 from apitest.src.utilities.dbUtility import DBUtility
 
 
@@ -11,3 +13,9 @@ class CustomersDAO:
         rs_sql = self.__db_helper.execute_select(sql=sql)
 
         return rs_sql
+
+    def get_random_customer_from_db(self, qty: int = 1):
+        sql = 'SELECT * FROM wp_users wu ORDER BY id DESC LIMIT 5000;'
+        rs_sql = self.__db_helper.execute_select(sql=sql)
+
+        return random.sample(rs_sql, qty)
