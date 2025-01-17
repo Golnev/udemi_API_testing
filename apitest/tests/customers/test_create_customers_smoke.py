@@ -1,5 +1,3 @@
-from itertools import cycle
-
 import pytest
 import logging as logger
 
@@ -11,6 +9,7 @@ from apitest.src.utilities.genericUtilities import generate_random_email_and_pas
 from apitest.src.utilities.requestsUtilities import RequestUtility
 
 
+@pytest.mark.customers
 @pytest.mark.tcid29
 def test_create_customer_only_email_password(faker: Faker):
     logger.info('TEST: Create new customer with email and password only.')
@@ -53,6 +52,7 @@ def test_create_customer_only_email_password(faker: Faker):
     # pdb.set_trace()
 
 
+@pytest.mark.customers
 @pytest.mark.tcid47
 def test_create_customer_fail_for_existing_email():
     #  Get existing email from DB.
