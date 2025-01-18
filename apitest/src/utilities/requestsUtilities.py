@@ -65,11 +65,15 @@ class RequestUtility:
 
         self.url: str = self.base_url + endpoint
 
-        rs_api = requests.get(url=self.url, params=params, data=json.dumps(payload), headers=headers, auth=self.auth)
+        self.rs_api = requests.get(url=self.url,
+                                   params=params,
+                                   data=json.dumps(payload),
+                                   headers=headers,
+                                   auth=self.auth)
 
-        self.status_code = rs_api.status_code
+        self.status_code = self.rs_api.status_code
         self.expected_status_code = expected_status_code
-        self.rs_json = rs_api.json()
+        self.rs_json = self.rs_api.json()
 
         self.__assert_status_code()
 
