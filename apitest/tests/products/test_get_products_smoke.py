@@ -4,8 +4,9 @@ from apitest.src.dao.products_dao import ProductsDAO
 from apitest.src.helpers.products_helper import ProductsHelper
 from apitest.src.utilities.requestsUtilities import RequestUtility
 
+pytestmark = [pytest.mark.products, pytest.mark.smoke]
 
-@pytest.mark.products
+
 @pytest.mark.tcid24
 def test_get_all_products():
     req_helper = RequestUtility()
@@ -14,7 +15,6 @@ def test_get_all_products():
     assert rs_api, f'Response off list products is empty'
 
 
-@pytest.mark.products
 @pytest.mark.tcid25
 def test_get_product_by_id():
     #  Get a product (test data) from DB.

@@ -4,8 +4,9 @@ from apitest.src.dao.products_dao import ProductsDAO
 from apitest.src.helpers.products_helper import ProductsHelper
 from apitest.src.utilities.genericUtilities import generate_random_product_name
 
+pytestmark = [pytest.mark.products, pytest.mark.smoke]
 
-@pytest.mark.products
+
 @pytest.mark.tcid26
 def test_create_1_simple_product():
     #  Generate some data.

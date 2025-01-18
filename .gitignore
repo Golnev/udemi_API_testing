@@ -3,6 +3,7 @@
 venv
 woocommerce.9.5.1
 __pycache__
+.pytest_cache
 apitest/__pycache__
 apitest/src/__pycache__
 apitest/tests/__pycache__

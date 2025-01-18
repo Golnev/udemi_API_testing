@@ -2,8 +2,9 @@ import pytest
 
 from apitest.src.utilities.requestsUtilities import RequestUtility
 
+pytestmark = [pytest.mark.customers, pytest.mark.smoke]
 
-@pytest.mark.customers
+
 @pytest.mark.tcid30
 def test_get_all_customers():
     req_helper = RequestUtility()
