@@ -7,3 +7,6 @@ class ProductsHelper:
 
     def get_product_by_id(self, product_id: int):
         return self.request_utility.get(f'products/{product_id}')
+
+    def call_create_product(self, payload):
+        return self.request_utility.post(endpoint='products', payload=payload, expected_status_code=201)

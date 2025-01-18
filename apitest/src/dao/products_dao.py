@@ -12,3 +12,7 @@ class ProductsDAO:
         rs_sql = self.db_helper.execute_select(sql=sql)
 
         return random.sample(rs_sql, qty)
+
+    def get_product_by_id_from_db(self, product_id: int):
+        sql = f'SELECT * FROM wp_posts wp  WHERE ID = {product_id};'
+        return self.db_helper.execute_select(sql=sql)
