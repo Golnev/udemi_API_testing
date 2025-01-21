@@ -7,7 +7,7 @@ class ProductsDAO:
     def __init__(self):
         self.db_helper = DBUtility()
 
-    def get_random_product_from_db(self, qty: int = 1):
+    def get_random_product_from_db(self, qty: int = 1) -> list[dict]:
         sql = 'SELECT * FROM wp_posts wp WHERE post_type = "product" LIMIT 5000;'
         rs_sql = self.db_helper.execute_select(sql=sql)
 

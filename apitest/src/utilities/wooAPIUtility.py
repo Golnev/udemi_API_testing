@@ -5,7 +5,6 @@ from typing import Optional
 from dotenv import load_dotenv
 from woocommerce import API
 
-# from apitest.src.configs.hosts_config import WOO_API_HOSTS
 from apitest.src.configs.hosts_config import WOO_API_HOSTS
 from apitest.src.utilities.credentialsUtilities import CredentialUtility
 
@@ -37,6 +36,21 @@ class WooAPIUtility:
             (f'Bad status code. Expected status code: {self.expected_status_code}, '
              f'actual status code: {self.rs_api.status_code}, '
              f'URL: {self.url}, Response JSON: {self.rs_json}')
+
+    def post(self, wc_endpoint: str, params: Optional[dict] = None, expected_status_code: int = 200):
+        self.url: str = self.base_url + wc_endpoint
+
+        self.rs_api = self.wcapi.post(endpoint=wc_endpoint, data=params)
+
+        self.status_code = self.rs_api.status_code
+        self.expected_status_code = expected_status_code
+        self.rs_json = self.rs_api.json()
+
+        self.__assert_status_code()
+
+        logger.debug(f'POST API response: {self.rs_json}')
+
+        return self.rs_json
 
     def get(self, wc_endpoint: str, params: Optional[dict] = None, expected_status_code: int = 200):
         self.url: str = self.base_url + wc_endpoint
