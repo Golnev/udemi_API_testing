@@ -5,6 +5,7 @@ from apitest.src.dao.products_dao import ProductsDAO
 from apitest.src.helpers.orders_helper import OrdersHelper
 
 
+@pytest.mark.smoke
 @pytest.mark.orders
 @pytest.mark.tcid48
 def test_create_paid_order_guest_user():
